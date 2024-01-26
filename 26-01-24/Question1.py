@@ -1,15 +1,4 @@
-***
-
-***
-#include <bits/stdc++.h>
-using namespace std;
-
-int digit_sum(int n){
-    int sum = 0;
-    while(n>0){
-        sum += n%10;
-        n=n/10;
-    }Kristen loves playing with and comparing numbers. She thinks that if she takes two different positive numbers, the one whose digits sum to a larger number is better than the other. If the sum of digits is equal for both numbers, then she thinks the smaller number is better. For example, Kristen thinks that  is better than  and that  is better than .
+''' Kristen loves playing with and comparing numbers. She thinks that if she takes two different positive numbers, the one whose digits sum to a larger number is better than the other. If the sum of digits is equal for both numbers, then she thinks the smaller number is better. For example, Kristen thinks that  is better than  and that  is better than .
 
 Given an integer, , can you find the divisor of  that Kristin will consider to be the best?
 
@@ -29,17 +18,36 @@ Sample Input 0
 Sample Output 0
 
 6
-    return sum;
-}
+Explanation 0
 
-int main()
-{
-    int n;cin>>n;
-    int best=1;
-    for(int i=1;i<=n;i++){
-        if(n%i==0 && digit_sum(i)>digit_sum(best)){
-            best=i;
-        }
-    }
-    cout << best;
-}
+The set of divisors of  can be expressed as . The divisor whose digits sum to the largest number is  (which, having only one digit, sums to itself). Thus, we print  as our answer. '''
+
+
+
+
+#!/bin/python3
+
+import math
+import os
+import random
+import re
+import sys
+
+
+
+if __name__ == '__main__':
+    n = int(input().strip())
+    d=[]
+    s=[]
+    for i in range(1,n+1):
+        if n%i==0:
+            d.append(str(i))
+    for i in d:
+        k=0
+        for j in i:
+            k+=int(j)
+        s.append(k)
+    u=max(s)
+    y=s.index(u)
+    print(d[y])
+        
