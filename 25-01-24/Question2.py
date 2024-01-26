@@ -1,149 +1,76 @@
-***
-Cities on a map are connected by a number of roads. The number of roads between each city is in an array and city  is the starting location. The number of roads from city  to city  is the first value in the array, from city  to city  is the second, and so on.
+''' Consider two points,  and . We consider the inversion or point reflection, , of point  across point  to be a  rotation of point  around .
 
-How many paths are there from city  to the last city in the list, modulo ?
-
-Example
-
-
-There are  roads to city ,  roads to city  and  roads to city . The total number of roads is .
-
-Note
-Pass all the towns Ti for i=1 to n-1 in numerical order to reach Tn.
+Given  sets of points  and , find  for each pair of points and print two space-separated integers denoting the respective values of  and  on a new line.
 
 Function Description
 
-Complete the connectingTowns function in the editor below.
+Complete the findPoint function in the editor below.
 
-connectingTowns has the following parameters:
+findPoint has the following parameters:
 
-int n: the number of towns
-int routes[n-1]: the number of routes between towns
+int px, py, qx, qy: x and y coordinates for points  and 
 Returns
 
-int: the total number of routes, modulo 1234567.
+int[2]: x and y coordinates of the reflected point 
 Input Format
-The first line contains an integer T, T test-cases follow.
 
-Each test-case has 2 lines.
-The first line contains an integer N (the number of towns).
-The second line contains N - 1 space separated integers where the ith integer denotes the number of routes, Ni, from the town Ti to Ti+1
+The first line contains an integer, , denoting the number of sets of points.
+Each of the  subsequent lines contains four space-separated integers that describe the respective values of , , , and  defining points  and .
 
 Constraints
-1 <= T<=1000
-2< N <=100
-1 <= routes[i] <=1000
 
 Sample Input
 
 2
-3
-1 3
-4
-2 2 2
+0 0 1 1
+1 1 2 2
 Sample Output
 
-3
-8
-***
-#include <bits/stdc++.h>
+2 2
+3 3 '''
 
-using namespace std;
 
-string ltrim(const string &);
-string rtrim(const string &);
-vector<string> split(const string &);
+#!/bin/python3
 
-/*
- * Complete the 'connectingTowns' function below.
- *
- * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER n
- *  2. INTEGER_ARRAY routes
- */
+import math
+import os
+import random
+import re
+import sys
 
-int connectingTowns(int n, vector<int> routes) {
-long utak=1;
-    for(int i=0;i<=n-2;i++){
-       utak= (utak*routes[i])%1234567;
-    }
-    return (utak);
-}
+#
+# Complete the 'findPoint' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts following parameters:
+#  1. INTEGER px
+#  2. INTEGER py
+#  3. INTEGER qx
+#  4. INTEGER qy
+#
 
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
+def findPoint(px, py, qx, qy):
+    return str(2*qx-px),str(2*qy-py)
 
-    string t_temp;
-    getline(cin, t_temp);
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    int t = stoi(ltrim(rtrim(t_temp)));
+    n = int(input().strip())
 
-    for (int t_itr = 0; t_itr < t; t_itr++) {
-        string n_temp;
-        getline(cin, n_temp);
+    for n_itr in range(n):
+        first_multiple_input = input().rstrip().split()
 
-        int n = stoi(ltrim(rtrim(n_temp)));
+        px = int(first_multiple_input[0])
 
-        string routes_temp_temp;
-        getline(cin, routes_temp_temp);
+        py = int(first_multiple_input[1])
 
-        vector<string> routes_temp = split(rtrim(routes_temp_temp));
+        qx = int(first_multiple_input[2])
 
-        vector<int> routes(n - 1);
+        qy = int(first_multiple_input[3])
 
-        for (int i = 0; i < n - 1; i++) {
-            int routes_item = stoi(routes_temp[i]);
+        result = findPoint(px, py, qx, qy)
 
-            routes[i] = routes_item;
-        }
+        fptr.write(' '.join(map(str, result)))
+        fptr.write('\n')
 
-        int result = connectingTowns(n, routes);
-
-        fout << result << "\n";
-    }
-
-    fout.close();
-
-    return 0;
-}
-
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
-}
-
-vector<string> split(const string &str) {
-    vector<string> tokens;
-
-    string::size_type start = 0;
-    string::size_type end = 0;
-
-    while ((end = str.find(" ", start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
-
-        start = end + 1;
-    }
-
-    tokens.push_back(str.substr(start));
-
-    return tokens;
-}
+    fptr.close()
